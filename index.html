@@ -22,9 +22,46 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
-            overflow: hidden;
-            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-height: 100vh;
             width: 100vw;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                overflow: hidden;
+                height: 100vh;
+            }
+        }
+
+        /* CONTROLADORES DE PANTALLAS (Garantizan ocultamiento nativo e inmediato) */
+        .screen {
+            display: none !important; /* Oculto por defecto */
+            width: 100vw;
+            min-height: 100vh;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            padding: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .screen {
+                height: 100vh;
+                min-height: auto;
+                padding: 2.5rem;
+            }
+        }
+
+        .screen.active {
+            display: flex !important; /* Muestra solo la pantalla activa */
+        }
+
+        /* Regla crítica local: Evita que fallen las pantallas si Tailwind se bloquea o tarda en cargar */
+        .hidden {
+            display: none !important;
         }
 
         .font-tech {
@@ -142,6 +179,70 @@
         .qr-glow-box {
             animation: borderGlow 3s infinite;
         }
+
+        /* ================= OPTIMIZACIONES DE ESCALA (MÓVIL & 75") ================= */
+        
+        /* Ajustes específicos para Pantallas Gigantes de Exposición (>= 1800px / 75") */
+        @media (min-width: 1800px) {
+            h1 { font-size: 6.5rem !important; margin-bottom: 1.5rem !important; }
+            .subtitle { font-size: 2.2rem !important; line-height: 1.6 !important; margin-bottom: 4rem !important; max-width: 80% !important; }
+            .btn-container { gap: 3rem !important; }
+            .cyber-btn { padding: 3rem 4rem !important; }
+            .cyber-btn span.font-tech { font-size: 3.5rem !important; }
+            .cyber-btn span.text-sm, .cyber-btn span.text-xs { font-size: 1.4rem !important; }
+            .qr-glow-box { max-width: 850px !important; padding: 2.5rem !important; gap: 3.5rem !important; margin-top: 3rem; }
+            .qr-glow-box img { width: 180px !important; height: 180px !important; }
+            .qr-glow-box h3 { font-size: 2.2rem !important; }
+            .qr-glow-box p { font-size: 1.3rem !important; }
+            .qr-glow-box span { font-size: 1.2rem !important; }
+            
+            /* Ajustes del Panel de Trivia en Pantallas de 75" */
+            .trivia-container { max-width: 1400px !important; padding: 4rem !important; min-height: 750px !important; }
+            #progress-tag { font-size: 2rem !important; }
+            .trivia-question { font-size: 4rem !important; margin-bottom: 4.5rem !important; }
+            .trivia-btn { padding: 2.5rem !important; border-radius: 24px !important; }
+            .trivia-btn span { font-size: 2.3rem !important; }
+            .trivia-btn i { width: 2.5rem !important; height: 2.5rem !important; }
+            
+            /* Retroalimentación en 75" */
+            #feedback-onomatopoeia { font-size: 10rem !important; }
+            #feedback-title { font-size: 4.5rem !important; }
+            #feedback-desc { font-size: 2.5rem !important; max-width: 85% !important; margin-bottom: 4rem !important; }
+            #feedback-block button { padding: 1.8rem 3rem !important; font-size: 2rem !important; }
+        }
+
+        /* Ajustes específicos para Smartphones (< 640px) */
+        @media (max-width: 640px) {
+            h1 { font-size: 2.8rem !important; line-height: 1.2 !important; }
+            .subtitle { font-size: 1rem !important; margin-bottom: 2rem !important; }
+            .btn-container { gap: 1rem !important; width: 100% !important; }
+            .cyber-btn { padding: 1.25rem 1rem !important; min-width: auto !important; width: 100% !important; border-radius: 16px !important; }
+            .cyber-btn span.font-tech { font-size: 1.4rem !important; }
+            .cyber-btn span.text-xs { font-size: 0.8rem !important; }
+            .qr-glow-box { flex-direction: column !important; text-align: center !important; gap: 1rem !important; padding: 1.25rem !important; }
+            .qr-glow-box .text-left { text-align: center !important; }
+            .qr-glow-box img { width: 110px !important; height: 110px !important; margin: 0 auto; }
+            .qr-glow-box .truncate { max-width: 100% !important; text-align: center !important; }
+
+            /* Ajustes del Panel de Trivia en Celulares */
+            .trivia-container { padding: 1.5rem !important; min-height: auto !important; width: 100% !important; }
+            .trivia-question { font-size: 1.4rem !important; margin-bottom: 1.5rem !important; line-height: 1.4 !important; }
+            .options-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+            .trivia-btn { padding: 1rem !important; border-radius: 12px !important; }
+            .trivia-btn span { font-size: 1rem !important; line-height: 1.3 !important; }
+            .trivia-btn i { width: 1.25rem !important; height: 1.25rem !important; }
+            
+            /* Retroalimentación en Celulares */
+            #feedback-onomatopoeia { font-size: 4rem !important; }
+            #feedback-title { font-size: 1.8rem !important; }
+            #feedback-desc { font-size: 1rem !important; line-height: 1.4 !important; margin-bottom: 1.5rem !important; }
+            #feedback-block button { padding: 1rem 1.5rem !important; font-size: 1.1rem !important; }
+            
+            .btn-back, .btn-config { padding: 0.5rem 1rem !important; font-size: 0.8rem !important; top: 1rem !important; }
+            .btn-back { left: 1rem !important; }
+            .btn-config { right: 1rem !important; }
+            #pdf-wrapper { height: 60vh !important; margin-top: 4rem !important; }
+        }
     </style>
 </head>
 <body class="text-slate-100 flex justify-center items-center select-none relative">
@@ -153,27 +254,27 @@
     <div class="absolute inset-0 manga-lines z-0 pointer-events-none opacity-40"></div>
 
     <!-- ================= PANTALLA PRINCIPAL ================= -->
-    <div id="screen-main" class="screen active z-10 w-full h-full flex flex-col justify-between items-center py-6 px-12">
+    <div id="screen-main" class="screen active z-10 w-full h-full flex flex-col justify-between items-center py-6 px-4 md:px-12">
         
         <!-- Parte Superior: Header -->
-        <div class="text-center mt-4">
+        <div class="text-center mt-2 md:mt-4">
             <div class="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/40 px-4 py-1.5 rounded-full mb-3 animate-pulse">
                 <span class="w-2.5 h-2.5 bg-amber-500 rounded-full"></span>
                 <span class="font-tech text-amber-400 text-sm tracking-widest font-bold">MÓDULO INTERACTIVO TUMBES</span>
             </div>
-            <h1 class="font-tech font-black text-5xl md:text-6xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-amber-300">
+            <h1 class="font-tech font-black text-4xl md:text-6xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-amber-300">
                 ⏱️ RUTA DE LA FLAGRANCIA
             </h1>
         </div>
 
         <!-- Parte Central: Botones de Juego y Cómic -->
         <div class="w-full max-w-4xl text-center flex flex-col items-center">
-            <p class="subtitle text-lg md:text-xl text-slate-300 font-light mb-8 max-w-3xl leading-relaxed">
+            <p class="subtitle text-base md:text-xl text-slate-300 font-light mb-6 md:mb-8 max-w-3xl leading-relaxed">
                 El circuito de la justicia rápida en acción. Pon a prueba tus habilidades antes de que el reloj de las <span class="text-amber-400 font-tech font-semibold">72 horas</span> legales llegue a cero.
             </p>
             
-            <div class="btn-container flex flex-col sm:flex-row gap-6 justify-center w-full">
-                <button class="cyber-btn cyber-btn-blue px-10 py-6 rounded-2xl flex flex-col items-center justify-center gap-2 min-w-[280px]" onclick="navegarA('screen-reading')">
+            <div class="btn-container flex flex-col sm:flex-row gap-4 md:gap-6 justify-center w-full">
+                <button class="cyber-btn cyber-btn-blue px-10 py-6 rounded-2xl flex flex-col items-center justify-center gap-2 min-w-[280px]" onclick="navegarA('screen-reading'); cargarPdfDrive();">
                     <span class="font-tech font-black text-2xl tracking-widest flex items-center gap-2">
                         <i data-lucide="book-open" class="w-7 h-7"></i> HISTORIETA
                     </span>
@@ -189,7 +290,7 @@
         </div>
 
         <!-- Parte Inferior: Módulo del Código QR dinámico y llamativo -->
-        <div class="w-full max-w-lg mb-4">
+        <div class="w-full max-w-lg mb-2">
             <div class="qr-glow-box bg-slate-900/80 border-2 rounded-2xl p-4 flex items-center gap-6 backdrop-blur-md">
                 <!-- Imagen del código QR generado dinámicamente -->
                 <div class="bg-white p-2 rounded-xl flex-shrink-0 border-2 border-amber-500">
@@ -197,19 +298,19 @@
                 </div>
                 
                 <!-- Textos e Invitación de Escaneo -->
-                <div class="text-left flex-1">
+                <div class="text-left flex-1 min-w-0">
                     <div class="inline-flex items-center gap-1.5 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded text-[10px] font-tech text-amber-400 font-bold tracking-widest mb-1.5 uppercase">
                         📲 Lleva el juego en tu celular
                     </div>
                     <h3 class="font-tech font-bold text-slate-100 text-sm md:text-base leading-tight mb-1">
                         ¡ESCANEA Y ENTRÉNATE!
                     </h3>
-                    <p class="text-xs text-slate-400 leading-normal mb-2">
+                    <p class="text-[11px] md:text-xs text-slate-400 leading-normal mb-2">
                         Apunta con la cámara de tu celular para jugar desde las aulas o compartirlo en casa.
                     </p>
                     <div class="flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                        <span id="qr-url-text" class="text-[10px] text-slate-500 truncate font-mono max-w-[200px] md:max-w-[250px]">
+                        <span id="qr-url-text" class="text-[10px] text-slate-500 truncate font-mono block w-full">
                             Detectando enlace...
                         </span>
                     </div>
@@ -221,24 +322,29 @@
 
 
     <!-- ================= PANTALLA INTERFAZ LECTURA ================= -->
-    <div id="screen-reading" class="screen z-10 w-full h-full flex flex-col justify-center items-center px-8 hidden relative">
-        <button class="btn-back absolute top-8 left-8 bg-slate-800/80 hover:bg-slate-700 hover:text-white border border-slate-700 text-slate-300 px-6 py-3 rounded-xl font-tech font-bold text-sm tracking-widest flex items-center gap-2 transition-all" onclick="navegarA('screen-main')">
-            <i data-lucide="arrow-left" class="w-5 h-5"></i> VOLVER AL INICIO
+    <div id="screen-reading" class="screen z-10 w-full h-full flex flex-col justify-center items-center px-4 md:px-8 hidden relative">
+        <button class="btn-back absolute top-8 left-8 bg-slate-800/80 hover:bg-slate-700 hover:text-white border border-slate-700 text-slate-300 px-6 py-3 rounded-xl font-tech font-bold text-xs tracking-widest flex items-center gap-2 transition-all" onclick="navegarA('screen-main')">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> VOLVER
         </button>
         
-        <button class="btn-config absolute top-8 right-8 bg-slate-800/80 hover:bg-slate-700 hover:text-white border border-slate-700 text-slate-300 px-6 py-3 rounded-xl font-tech font-bold text-sm tracking-widest flex items-center gap-2 transition-all" onclick="document.getElementById('pdf-input').click()">
-            <i data-lucide="upload" class="w-5 h-5"></i> CARGAR CÓMIC (PDF)
-        </button>
-        <input type="file" id="pdf-input" class="hide-input hidden" accept="application/pdf" onchange="cargarPDF(event)">
+        <div class="absolute top-8 right-8 flex gap-2 z-20">
+            <button class="btn-config bg-amber-500/80 hover:bg-amber-600 hover:text-slate-950 border border-amber-500/50 text-slate-950 px-4 py-3 rounded-xl font-tech font-bold text-xs tracking-widest flex items-center gap-2 transition-all" onclick="ajustarUrlDrive()">
+                <i data-lucide="settings" class="w-4 h-4"></i> CONFIGURAR DRIVE
+            </button>
+            <button class="btn-config bg-slate-800/80 hover:bg-slate-700 hover:text-white border border-slate-700 text-slate-300 px-4 py-3 rounded-xl font-tech font-bold text-xs tracking-widest flex items-center gap-2 transition-all" onclick="document.getElementById('pdf-input').click()">
+                <i data-lucide="upload" class="w-4 h-4"></i> CARGAR LOCAL (PDF)
+            </button>
+        </div>
+        <input type="file" id="pdf-input" class="hide-input hidden" accept="application/pdf" onchange="cargarPDFLocal(event)">
 
-        <div id="pdf-wrapper" class="w-[90vw] h-[72vh] mt-16 bg-slate-950/80 border-2 border-slate-800 rounded-3xl flex justify-center items-center overflow-hidden shadow-2xl relative">
+        <div id="pdf-wrapper" class="w-[95vw] md:w-[90vw] h-[75vh] mt-20 md:mt-16 bg-slate-950/80 border-2 border-slate-800 rounded-3xl flex justify-center items-center overflow-hidden shadow-2xl relative">
             <div id="pdf-placeholder" class="text-center p-8 max-w-lg">
-                <div class="w-20 h-20 bg-blue-500/10 border border-blue-500/30 text-blue-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i data-lucide="file-text" class="w-10 h-10"></i>
+                <div class="w-16 h-16 bg-blue-500/10 border border-blue-500/30 text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="file-text" class="w-8 h-8"></i>
                 </div>
-                <p class="text-2xl font-tech font-bold text-slate-100 mb-2">Historieta sin Cargar</p>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                    Sube el archivo PDF de la historieta oficial de los Vengadores de la Flagrancia utilizando el botón de carga superior.
+                <p class="text-xl font-tech font-bold text-slate-100 mb-2">Conectando con Google Drive...</p>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Si el documento no carga de forma automática en unos segundos, verifica tu conexión o utiliza la opción de configuración para guardar tu enlace propio.
                 </p>
             </div>
         </div>
@@ -246,15 +352,15 @@
 
 
     <!-- ================= PANTALLA INTERFAZ DE JUEGO ================= -->
-    <div id="screen-game" class="screen z-10 w-full h-full flex flex-col justify-center items-center px-8 hidden relative">
-        <button class="btn-back absolute top-8 left-8 bg-slate-800/80 hover:bg-slate-700 hover:text-white border border-slate-700 text-slate-300 px-6 py-3 rounded-xl font-tech font-bold text-sm tracking-widest flex items-center gap-2 transition-all" onclick="navegarA('screen-main')">
-            <i data-lucide="arrow-left" class="w-5 h-5"></i> ABANDONAR
+    <div id="screen-game" class="screen z-10 w-full h-full flex flex-col justify-center items-center px-4 md:px-8 hidden relative">
+        <button class="btn-back absolute top-4 left-4 md:top-8 md:left-8 bg-slate-800/80 hover:bg-slate-700 hover:text-white border border-slate-700 text-slate-300 px-4 py-2 md:px-6 md:py-3 rounded-xl font-tech font-bold text-xs tracking-widest flex items-center gap-2 transition-all" onclick="navegarA('screen-main')">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> ABANDONAR
         </button>
         
-        <div class="trivia-container cyber-panel p-12 w-full max-w-5xl min-h-[580px] flex flex-col justify-between items-center relative">
+        <div class="trivia-container cyber-panel p-6 md:p-12 w-full max-w-5xl min-h-auto md:min-h-[580px] flex flex-col justify-between items-center relative">
             <!-- Indicador de Progreso superior -->
-            <div class="w-full flex justify-between items-center mb-6 pb-4 border-b border-slate-800">
-                <div id="progress-tag" class="font-tech text-amber-500 font-bold tracking-widest text-lg">
+            <div class="w-full flex justify-between items-center mb-4 md:mb-6 pb-4 border-b border-slate-800">
+                <div id="progress-tag" class="font-tech text-amber-500 font-bold tracking-widest text-sm md:text-lg">
                     PREGUNTA 1 DE 3
                 </div>
                 <div class="flex gap-2">
@@ -266,10 +372,10 @@
             
             <!-- Bloque de preguntas activas -->
             <div id="quiz-block" class="w-full flex-1 flex flex-col justify-center">
-                <div class="trivia-question text-3xl font-bold leading-relaxed text-slate-100 mb-10 text-center" id="question-text">
+                <div class="trivia-question text-xl md:text-3xl font-bold leading-relaxed text-slate-100 mb-6 md:mb-10 text-center" id="question-text">
                     ¿Pregunta cargando?
                 </div>
-                <div class="options-grid grid grid-cols-1 md:grid-cols-2 gap-6 w-full" id="options-box">
+                <div class="options-grid grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full" id="options-box">
                     <!-- Los botones dinámicos irán aquí -->
                 </div>
             </div>
@@ -277,16 +383,16 @@
             <!-- Bloque de retroalimentación / resultados -->
             <div id="feedback-block" class="feedback-box w-full flex-1 flex-col justify-center items-center hidden">
                 <!-- Onomatopeya Visual Estilo Cómic -->
-                <div id="feedback-onomatopoeia" class="font-comic text-7xl text-amber-400 mb-4 tracking-wide drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+                <div id="feedback-onomatopoeia" class="font-comic text-5xl md:text-7xl text-amber-400 mb-2 md:mb-4 tracking-wide drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
                     ¡ZAP!
                 </div>
-                <div class="feedback-title text-4xl font-tech font-black mb-4 tracking-wider" id="feedback-title">
+                <div class="feedback-title text-2xl md:text-4xl font-tech font-black mb-3 md:mb-4 tracking-wider" id="feedback-title">
                     ¡CORRECTO!
                 </div>
-                <p class="feedback-text text-xl text-slate-300 font-light leading-relaxed max-w-3xl text-center mb-8" id="feedback-desc">
+                <p class="feedback-text text-sm md:text-xl text-slate-300 font-light leading-relaxed max-w-3xl text-center mb-6 md:mb-8" id="feedback-desc">
                     Explicación de la ley.
                 </p>
-                <button class="cyber-btn cyber-btn-amber px-10 py-5 rounded-xl font-tech font-bold text-lg tracking-wider flex items-center gap-2" onclick="siguientePregunta()">
+                <button class="cyber-btn cyber-btn-amber px-8 py-4 md:px-10 md:py-5 rounded-xl font-tech font-bold text-sm md:text-lg tracking-wider flex items-center gap-2" onclick="siguientePregunta()">
                     SIGUIENTE RETO <i data-lucide="chevron-right" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -295,7 +401,14 @@
 
     <!-- ================= SCRIPT LOGIC ================= -->
     <script>
-        // Inicializar iconos
+        // Enlace permanente por defecto de Google Drive (Formato Vista Previa)
+        // Reemplaza este ID por el tuyo de Drive compartido públicamente
+        const DEFAULT_DRIVE_URL = "https://drive.google.com/file/d/1_SgM_f_7nEunZJ_XfLscf9t2P2kK_h16/view?usp=sharing";
+
+        // Inicializar enlace persistente desde localStorage o valor por defecto
+        let pdfDriveUrl = localStorage.getItem("flagrancia_pdf_drive_url") || DEFAULT_DRIVE_URL;
+
+        // Inicializar iconos de Lucide
         lucide.createIcons();
 
         // Canvas de partículas estilo Unreal Engine 5
@@ -366,35 +479,84 @@
         initParticles();
         animateParticles();
 
-        // Generar Código QR Dinámicamente a partir de la URL actual
+        // Extraer ID de Google Drive y construir URL de previsualización compatible con iframe
+        function obtenerEnlaceIncrustableDrive(url) {
+            if (!url) return "";
+            // Regex para capturar el ID de archivos en URLs típicas de Google Drive
+            const regExp = /\/file\/d\/([a-zA-Z0-9-_]+)/;
+            const matches = url.match(regExp);
+            if (matches && matches[1]) {
+                return `https://drive.google.com/file/d/${matches[1]}/preview`;
+            }
+            return url;
+        }
+
+        // Carga automática del PDF permanente desde Google Drive
+        function cargarPdfDrive() {
+            const wrapper = document.getElementById('pdf-wrapper');
+            const embedUrl = obtenerEnlaceIncrustableDrive(pdfDriveUrl);
+            
+            if (embedUrl) {
+                wrapper.innerHTML = `<iframe src="${embedUrl}" class="w-full h-full border-none" allow="autoplay"></iframe>`;
+            }
+        }
+
+        // Permitir cambiar la URL de Google Drive de manera dinámica e interactiva en la pantalla de 75"
+        function ajustarUrlDrive() {
+            const nuevaUrl = prompt("Por favor, introduce el enlace público compartido de tu Google Drive para el Cómic (PDF):", pdfDriveUrl);
+            if (nuevaUrl !== null && nuevaUrl.trim() !== "") {
+                pdfDriveUrl = nuevaUrl.trim();
+                localStorage.setItem("flagrancia_pdf_drive_url", pdfDriveUrl);
+                cargarPdfDrive();
+            }
+        }
+
+        // Generar Código QR Dinámicamente a partir de la URL de ejecución
         function inicializarCodigoQR() {
             let currentUrl = window.location.href;
             
-            // Si el juego corre de forma local o vacía (como un archivo local), pondremos una URL por defecto muy didáctica
-            if (currentUrl.startsWith('file://') || currentUrl.includes('localhost') || currentUrl.includes('about:srcdoc')) {
-                currentUrl = "https://www.gob.pe/poderjudicial"; // Web del Poder Judicial de respaldo
+            // Si corre en sandbox, local, o iframe de previsualización sin URL limpia
+            if (!currentUrl || 
+                currentUrl.startsWith('file://') || 
+                currentUrl.includes('localhost') || 
+                currentUrl.includes('about:srcdoc') || 
+                currentUrl.includes('googleusercontent.com') || 
+                currentUrl.length > 250) {
+                
+                // Enlace de respaldo oficial de la exposición
+                currentUrl = "https://www.gob.pe/poderjudicial"; 
             }
 
             const qrUrlText = document.getElementById('qr-url-text');
             const qrImage = document.getElementById('qr-image');
 
-            qrUrlText.innerText = currentUrl;
+            if (qrUrlText) {
+                qrUrlText.innerText = currentUrl;
+            }
             
-            // Usamos un servicio gratuito y sumamente estable de generación de códigos QR
-            // que devuelve una imagen QR perfecta
-            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentUrl)}`;
-            qrImage.src = qrApiUrl;
+            if (qrImage) {
+                // Generador estable de códigos QR mediante API
+                const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentUrl)}`;
+                qrImage.src = qrApiUrl;
+            }
         }
 
-        // Navegación entre pantallas
+        // Navegación entre pantallas optimizada
         function navegarA(screenId) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
-            document.getElementById(screenId).classList.remove('hidden');
-            document.getElementById(screenId).classList.add('flex');
+            document.querySelectorAll('.screen').forEach(s => {
+                s.classList.remove('active');
+                s.classList.add('hidden');
+            });
+            
+            const targetScreen = document.getElementById(screenId);
+            if (targetScreen) {
+                targetScreen.classList.remove('hidden');
+                targetScreen.classList.add('active');
+            }
         }
 
-        // Carga de PDF local
-        function cargarPDF(event) {
+        // Carga de archivo PDF local manual como método alternativo
+        function cargarPDFLocal(event) {
             const file = event.target.files[0];
             if (file && file.type === "application/pdf") {
                 const fileURL = URL.createObjectURL(file);
@@ -412,12 +574,6 @@
                 opciones: [{ texto: "❌ SOY INTOCABLE", correcto: false }, { texto: "🚨 SÍ ME SANCIONAN", correcto: true }],
                 explicacion: "¡SÍ TE SANCIONAN! Los adolescentes de entre 14 y 17 años que cometen infracciones graves no quedan libres. Son procesados de inmediato por la justicia y se les aplican medidas socioeducativas obligatorias o internamientos en centros especializados."
             },
-            {
-                pregunta: "¿Cuál es el objetivo principal del programa La Ruta de la Flagrancia?",
-                opciones: [{ texto: "❌ NINGUNO, SOLO EXPONER", correcto: false }, { texto: "🚨 CONCIENTIZAR A LOS JOVENES", correcto: true }],
-                explicacion: "Concientizar sobre las consecuencias del delito y mostrar cómo funciona la justicia rápida."
-            },
-            
             {
                 pregunta: "Si la policía me atrapa manejando ebrio y pido perdón prometiendo no volver a tomar, ¿el Juez de Flagrancia me deja ir a casa libre?",
                 opciones: [{ texto: "🙏 ME DEJAN IR", correcto: false }, { texto: "⚖️ VOY A JUICIO", correcto: true }],
@@ -444,9 +600,9 @@
                 explicacion: "¡SE ASIGNA UN DEFENSOR PÚBLICO! El Ministerio de Justicia cuenta con defensores públicos permanentes dentro de las Unidades de Flagrancia. Ellos garantizan de forma gratuita que los derechos del detenido se respeten por igual."
             },
             {
-                pregunta: "¿Qué operador de justicia se encarga de la captura inmediata del sospechoso en el momento del delito?",
-                opciones: [{ texto: "🤵‍♀️​ EL MINISTERIO PUBLICO", correcto: true }, { texto: "👮 POLICIA NACIONAL DEL PERU", correcto: false }],
-                explicacion: "La PNP capturar al presunto delincuente en el momento de la comisión del delito y asegurar la escena y las evidencias iniciales"
+                pregunta: "Si dos estudiantes ingresan sin autorización al sistema informático de su colegio para alterar las notas de los exámenes y los descubren conectados desde el laboratorio del colegio, ¿cometen un delito?",
+                opciones: [{ texto: "💻 SÍ, DELITO INFORMÁTICO", correcto: true }, { texto: "🤷‍♂️ NO, ES SOLO UNA BROMA", correcto: false }],
+                explicacion: "¡SÍ ES UN DELITO! El acceso ilícito a sistemas informáticos y la alteración de datos protegidos están penados por la Ley de Delitos Informáticos en el Perú. Si se descubre en el acto, entran en flagrancia."
             },
             {
                 pregunta: "Un conductor que causa un accidente de tránsito con lesiones graves se escapa de la escena, pero la policía lo cerca y lo arresta a las 3 horas. ¿Se le puede juzgar en una Unidad de Flagrancia?",
@@ -454,7 +610,7 @@
                 explicacion: "¡SÍ, ES FLAGRANCIA! La huida no anula la flagrancia si la policía lo identifica y captura dentro del plazo de las 24 horas posteriores al accidente. Irá a juicio inmediato por las lesiones y por abandono de personas en peligro."
             },
             {
-                pregunta: "Si un delincuente confiesa su culpabilidad de inmediato ante el Fiscal y el Juez de Flagrancia para acortar el proceso y recibir una rebaja de pena, ¿cómo se llama esta herramienta legal?",
+                pregunta: "Si un delincuente confiesa su culpabilidad de inmediato ante el Fiscal y el Juez de Flagrancia para acortar el proceso y recibir una rebaja de pena, ¿como se llama esta herramienta legal?",
                 opciones: [{ texto: "🤝 TERMINACIÓN ANTICIPADA", correcto: true }, { texto: "🚪 SALIDA DE EMERGENCIA", correcto: false }],
                 explicacion: "¡TERMINACIÓN ANTICIPADA! Es un mecanismo que permite al imputado aceptar sus cargos a cambio de reducir su condena en un sexto, logrando que el caso se cierre de manera justa y en pocas horas."
             },
@@ -518,11 +674,11 @@
             const boxOpciones = document.getElementById('options-box');
             boxOpciones.innerHTML = '';
 
-            // Renderizar opciones
+            // Renderizar opciones adaptativas
             datos.opciones.forEach(opc => {
                 const btn = document.createElement('button');
-                btn.className = 'trivia-btn text-left p-6 text-xl md:text-2xl font-semibold flex items-center justify-between w-full text-slate-200';
-                btn.innerHTML = `<span>${opc.texto}</span> <i data-lucide="chevron-right" class="w-6 h-6 text-slate-500"></i>`;
+                btn.className = 'trivia-btn text-left p-4 md:p-6 text-base md:text-2xl font-semibold flex items-center justify-between w-full text-slate-200';
+                btn.innerHTML = `<span>${opc.texto}</span> <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6 text-slate-500 flex-shrink-0"></i>`;
                 btn.onclick = () => procesarRespuesta(opc.correcto, datos.explicacion);
                 boxOpciones.appendChild(btn);
             });
@@ -546,17 +702,17 @@
             if(isCorrect) {
                 const idx = Math.floor(Math.random() * correctOnomatopeyas.length);
                 onomatopeiaEl.innerText = correctOnomatopeyas[idx];
-                onomatopeiaEl.className = "font-comic text-8xl text-emerald-400 mb-4 tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]";
+                onomatopeiaEl.className = "font-comic text-6xl md:text-8xl text-emerald-400 mb-2 md:mb-4 tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]";
                 
                 title.innerText = "¡RESPUESTA CORRECTA! 🎯";
-                title.className = "font-tech font-black text-4xl text-emerald-400 mb-4 tracking-widest";
+                title.className = "font-tech font-black text-2xl md:text-4xl text-emerald-400 mb-2 md:mb-4 tracking-widest";
             } else {
                 const idx = Math.floor(Math.random() * incorrectOnomatopeyas.length);
                 onomatopeiaEl.innerText = incorrectOnomatopeyas[idx];
-                onomatopeiaEl.className = "font-comic text-8xl text-rose-500 mb-4 tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]";
+                onomatopeiaEl.className = "font-comic text-6xl md:text-8xl text-rose-500 mb-2 md:mb-4 tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]";
                 
                 title.innerText = "¡RESPUESTA INCORRECTA! 🛑";
-                title.className = "font-tech font-black text-4xl text-rose-500 mb-4 tracking-widest";
+                title.className = "font-tech font-black text-2xl md:text-4xl text-rose-500 mb-2 md:mb-4 tracking-widest";
             }
 
             desc.innerText = explicacion;
@@ -572,10 +728,10 @@
             }
         }
 
-        // Ejecutar funciones de inicio al cargar ventana
-        window.onload = function() {
+        // Ejecutar funciones de inicio al cargar ventana de forma segura
+        document.addEventListener("DOMContentLoaded", function() {
             inicializarCodigoQR();
-        }
+        });
     </script>
 </body>
 </html>
