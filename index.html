@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta de la Flagrancia - Tumbes Cyber-Anime</title>
+    <!-- Tailwind CSS para layouts fluidos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons para simbología futurista -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        
+        :root {
+            --neon-blue: #3b82f6;
+            --neon-amber: #f59e0b;
+            --neon-purple: #8b5cf6;
+            --neon-green: #10b981;
+            --neon-red: #ef4444;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .font-tech {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .font-comic {
+            font-family: 'Bangers', cursive;
+            letter-spacing: 0.05em;
+        }
+
+        /* Paneles Holográficos estilo UE5 */
+        .cyber-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.15), inset 0 0 20px rgba(59, 130, 246, 0.1);
+            border-radius: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .cyber-panel-amber {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.15), inset 0 0 20px rgba(245, 158, 11, 0.1);
+            border-radius: 24px;
+            transition: all 0.3s ease;
+        }
+
+        /* Botones de Acción Neón Biselados */
+        .cyber-btn {
+            position: relative;
+            clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cyber-btn-blue {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+            color: #ffffff;
+        }
+        .cyber-btn-blue:hover {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            box-shadow: 0 0 35px rgba(59, 130, 246, 0.7);
+            transform: scale(1.02) translateY(-2px);
+        }
+
+        .cyber-btn-amber {
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+            box-shadow: 0 0 20px rgba(217, 119, 6, 0.4);
+            color: #ffffff;
+        }
+        .cyber-btn-amber:hover {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 0 35px rgba(245, 158, 11, 0.7);
+            transform: scale(1.02) translateY(-2px);
+        }
+
+        /* Botón de Respuesta de Trivia */
+        .trivia-btn {
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .trivia-btn:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Líneas de velocidad manga */
+        .manga-lines {
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.03),
+                rgba(255, 255, 255, 0.03) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+        }
+
+        /* Canvas de partículas */
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Animación Onomatopeyas */
+        @keyframes popOut {
+            0% { transform: scale(0.3) rotate(-15deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+            100% { transform: scale(1) rotate(-5deg); opacity: 1; }
+        }
+        .animate-onomatopoeia {
+            animation: popOut 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* Destello para el marco del QR */
+        @keyframes borderGlow {
+            0%, 100% { border-color: rgba(245, 158, 11, 0.4); box-shadow: 0 0 15px rgba(245, 158, 11, 0.1); }
+            50% { border-color: rgba(245, 158, 11, 0.9); box-shadow: 0 0 25px rgba(245, 158, 11, 0.4); }
+        }
+        .qr-glow-box {
+            animation: borderGlow 3s infinite;
+        }
+    </style>
+</head>
+<body class="text-slate-100 flex justify-center items-center select-none relative">
+
+    <!-- Canvas de partículas de fondo estilo Unreal Engine 5 -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Capa Manga/Cyberpunk sutil global -->
+    <div class="absolute inset-0 manga-lines z-0 pointer-events-none opacity-40"></div>
+
+    <!-- ================= PANTALLA PRINCIPAL ================= -->
+    <div id="screen-main" class="screen active z-10 w-full h-full flex flex-col justify-between items-center py-6 px-12">
+        
+        <!-- Parte Superior: Header -->
+        <div class="text-center mt-4">
+            <div class="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/40 px-4 py-1.5 rounded-full mb-3 animate-pulse">
+                <span class="w-2.5 h-2.5 bg-amber-500 rounded-full"></span>
+                <span class="font-tech text-amber-400 text-sm tracking-widest font-bold">MÓDULO INTERACTIVO TUMBES</span>
+            </div>
+            <h1 class="font-tech font-black text-5xl md:text-6xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-amber-300">
+                ⏱️ RUTA DE LA FLAGRANCIA
+            </h1>
+        </div>
+
+        <!-- Parte Central: Botones de Juego y Cómic -->
+        <div class="w-full max-w-4xl text-center flex flex-col items-center">
+            <p class="subtitle text-lg md:text-xl text-slate-300 font-light mb-8 max-w-3xl leading-relaxed">
+                El circuito de la justicia rápida en acción. Pon a prueba tus habilidades antes de que el reloj de las <span class="text-amber-400 font-tech font-semibold">72 horas</span> legales llegue a cero.
+            </p>
+            
+            <div class="btn-container flex flex-col sm:flex-row gap-6 justify-center w-full">
+                <button class="cyber-btn cyber-btn-blue px-10 py-6 rounded-2xl flex flex-col items-center justify-center gap-2 min-w-[280px]" onclick="navegarA('screen-reading')">
+                    <span class="font-tech font-black text-2xl tracking-widest flex items-center gap-2">
+                        <i data-lucide="book-open" class="w-7 h-7"></i> HISTORIETA
+                    </span>
+                    <span class="text-xs font-light text-blue-200">Lee el cómic táctico oficial</span>
+                </button>
+                <button class="cyber-btn cyber-btn-amber px-10 py-6 rounded-2xl flex flex-col items-center justify-center gap-2 min-w-[280px]" onclick="navegarA('screen-game'); prepararJuegoAleatorio();">
+                    <span class="font-tech font-black text-2xl tracking-widest flex items-center gap-2">
+                        <i data-lucide="play" class="w-7 h-7"></i> JUGAR
+                    </span>
+                    <span class="text-xs font-light text-amber-200">Trivia express para escolares</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Parte Inferior: Módulo del Código QR dinámico y llamativo -->
+        <div class="w-full max-w-lg mb-4">
+            <div class="qr-glow-box bg-slate-900/80 border-2 rounded-2xl p-4 flex items-center gap-6 backdrop-blur-md">
+                <!-- Imagen del código QR generado dinámicamente -->
+                <div class="bg-white p-2 rounded-xl flex-shrink-0 border-2 border-amber-500">
+                    <img id="qr-image" src="" alt="Código QR del Juego" class="w-24 h-24 md:w-28 md:h-28 object-contain">
+                </div>
+                
+                <!-- Textos e Invitación de Escaneo -->
+                <div class="text-left flex-1">
+                    <div class="inline-flex items-center gap-1.5 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded text-[10px] font-tech text-amber-400 font-bold tracking-widest mb-1.5 uppercase">
+                        📲 Lleva el juego en tu celular
+                    </div>
+                    <h3 class="font-tech font-bold text-slate-100 text-sm md:text-base leading-tight mb-1">
+                        ¡ESCANEA Y ENTRÉNATE!
+                    </h3>
+                    <p class="text-xs text-slate-400 leading-normal mb-2">
+                        Apunta con la cámara de tu celular para jugar desde las aulas o compartirlo en casa.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                        <span id="qr-url-text" class="text-[10px] text-slate-500 truncate font-mono max-w-[200px] md:max-w-[250px]">
+                            Detectando enlace...
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ================= PANTALLA INTERFAZ LECTURA ================= -->
+    <div id="screen-reading" class="screen z-10 w-full h-full flex flex-col justify-center items-center px-8 hidden relative">
+        <button class="btn-back absolute top-8 left-8 bg-slate-800/80 hover:bg-slate-700 hover:text-white border border-slate-700 text-slate-300 px-6 py-3 rounded-xl font-tech font-bold text-sm tracking-widest flex items-center gap-2 transition-all" onclick="navegarA('screen-main')">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i> VOLVER AL INICIO
+        </button>
+        
+        <button class="btn-config absolute top-8 right-8 bg-slate-800/80 hover:bg-slate-700 hover:text-white border border-slate-700 text-slate-300 px-6 py-3 rounded-xl font-tech font-bold text-sm tracking-widest flex items-center gap-2 transition-all" onclick="document.getElementById('pdf-input').click()">
+            <i data-lucide="upload" class="w-5 h-5"></i> CARGAR CÓMIC (PDF)
+        </button>
+        <input type="file" id="pdf-input" class="hide-input hidden" accept="application/pdf" onchange="cargarPDF(event)">
+
+        <div id="pdf-wrapper" class="w-[90vw] h-[72vh] mt-16 bg-slate-950/80 border-2 border-slate-800 rounded-3xl flex justify-center items-center overflow-hidden shadow-2xl relative">
+            <div id="pdf-placeholder" class="text-center p-8 max-w-lg">
+                <div class="w-20 h-20 bg-blue-500/10 border border-blue-500/30 text-blue-400 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i data-lucide="file-text" class="w-10 h-10"></i>
+                </div>
+                <p class="text-2xl font-tech font-bold text-slate-100 mb-2">Historieta sin Cargar</p>
+                <p class="text-sm text-slate-400 leading-relaxed">
+                    Sube el archivo PDF de la historieta oficial de los Vengadores de la Flagrancia utilizando el botón de carga superior.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= PANTALLA INTERFAZ DE JUEGO ================= -->
+    <div id="screen-game" class="screen z-10 w-full h-full flex flex-col justify-center items-center px-8 hidden relative">
+        <button class="btn-back absolute top-8 left-8 bg-slate-800/80 hover:bg-slate-700 hover:text-white border border-slate-700 text-slate-300 px-6 py-3 rounded-xl font-tech font-bold text-sm tracking-widest flex items-center gap-2 transition-all" onclick="navegarA('screen-main')">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i> ABANDONAR
+        </button>
+        
+        <div class="trivia-container cyber-panel p-12 w-full max-w-5xl min-h-[580px] flex flex-col justify-between items-center relative">
+            <!-- Indicador de Progreso superior -->
+            <div class="w-full flex justify-between items-center mb-6 pb-4 border-b border-slate-800">
+                <div id="progress-tag" class="font-tech text-amber-500 font-bold tracking-widest text-lg">
+                    PREGUNTA 1 DE 3
+                </div>
+                <div class="flex gap-2">
+                    <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-slate-700"></span>
+                    <span class="w-3 h-3 rounded-full bg-slate-700"></span>
+                </div>
+            </div>
+            
+            <!-- Bloque de preguntas activas -->
+            <div id="quiz-block" class="w-full flex-1 flex flex-col justify-center">
+                <div class="trivia-question text-3xl font-bold leading-relaxed text-slate-100 mb-10 text-center" id="question-text">
+                    ¿Pregunta cargando?
+                </div>
+                <div class="options-grid grid grid-cols-1 md:grid-cols-2 gap-6 w-full" id="options-box">
+                    <!-- Los botones dinámicos irán aquí -->
+                </div>
+            </div>
+
+            <!-- Bloque de retroalimentación / resultados -->
+            <div id="feedback-block" class="feedback-box w-full flex-1 flex-col justify-center items-center hidden">
+                <!-- Onomatopeya Visual Estilo Cómic -->
+                <div id="feedback-onomatopoeia" class="font-comic text-7xl text-amber-400 mb-4 tracking-wide drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+                    ¡ZAP!
+                </div>
+                <div class="feedback-title text-4xl font-tech font-black mb-4 tracking-wider" id="feedback-title">
+                    ¡CORRECTO!
+                </div>
+                <p class="feedback-text text-xl text-slate-300 font-light leading-relaxed max-w-3xl text-center mb-8" id="feedback-desc">
+                    Explicación de la ley.
+                </p>
+                <button class="cyber-btn cyber-btn-amber px-10 py-5 rounded-xl font-tech font-bold text-lg tracking-wider flex items-center gap-2" onclick="siguientePregunta()">
+                    SIGUIENTE RETO <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= SCRIPT LOGIC ================= -->
+    <script>
+        // Inicializar iconos
+        lucide.createIcons();
+
+        // Canvas de partículas estilo Unreal Engine 5
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * -1 - 0.5; // Flujo hacia arriba
+                this.opacity = Math.random() * 0.5 + 0.1;
+                this.color = Math.random() > 0.5 ? '#3b82f6' : '#f59e0b'; // Azul o Ámbar
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+                if (this.x < 0 || this.x > canvas.width) {
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        // Generar Código QR Dinámicamente a partir de la URL actual
+        function inicializarCodigoQR() {
+            let currentUrl = window.location.href;
+            
+            // Si el juego corre de forma local o vacía (como un archivo local), pondremos una URL por defecto muy didáctica
+            if (currentUrl.startsWith('file://') || currentUrl.includes('localhost') || currentUrl.includes('about:srcdoc')) {
+                currentUrl = "https://www.gob.pe/poderjudicial"; // Web del Poder Judicial de respaldo
+            }
+
+            const qrUrlText = document.getElementById('qr-url-text');
+            const qrImage = document.getElementById('qr-image');
+
+            qrUrlText.innerText = currentUrl;
+            
+            // Usamos un servicio gratuito y sumamente estable de generación de códigos QR
+            // que devuelve una imagen QR perfecta
+            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentUrl)}`;
+            qrImage.src = qrApiUrl;
+        }
+
+        // Navegación entre pantallas
+        function navegarA(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+            document.getElementById(screenId).classList.remove('hidden');
+            document.getElementById(screenId).classList.add('flex');
+        }
+
+        // Carga de PDF local
+        function cargarPDF(event) {
+            const file = event.target.files[0];
+            if (file && file.type === "application/pdf") {
+                const fileURL = URL.createObjectURL(file);
+                const wrapper = document.getElementById('pdf-wrapper');
+                wrapper.innerHTML = `<iframe src="${fileURL}" class="w-full h-full border-none"></iframe>`;
+            } else {
+                alert("Por favor, selecciona un archivo PDF válido.");
+            }
+        }
+
+        // GRAN BANCO DE DATOS (12 PREGUNTAS EXTENSAS)
+        const macroBancoPreguntas = [
+            {
+                pregunta: "Si tengo 16 años y me atrapan robando un celular en flagrancia, ¿puedo ser sancionado o soy intocable por ser menor?",
+                opciones: [{ texto: "❌ SOY INTOCABLE", correcto: false }, { texto: "🚨 SÍ ME SANCIONAN", correcto: true }],
+                explicacion: "¡SÍ TE SANCIONAN! Los adolescentes de entre 14 y 17 años que cometen infracciones graves no quedan libres. Son procesados de inmediato por la justicia y se les aplican medidas socioeducativas obligatorias o internamientos en centros especializados."
+            },
+            {
+                pregunta: "Si la policía me atrapa manejando ebrio y pido perdón prometiendo no volver a tomar, ¿el Juez de Flagrancia me deja ir a casa libre?",
+                opciones: [{ texto: "🙏 ME DEJAN IR", correcto: false }, { texto: "⚖️ VOY A JUICIO", correcto: true }],
+                explicacion: "¡VOY A JUICIO EXPRESS! El arrepentimiento no elimina el peligro causado. En la Unidad de Flagrancia, en cuestión de horas te suspenden la licencia, te imponen multas, reparaciones civiles y recibes una sentencia oficial."
+            },
+            {
+                pregunta: "¿Cuánto tiempo máximo tarda el sistema especial de Flagrancia en reunir pruebas, procesar y dictar la sentencia definitiva a un delincuente?",
+                opciones: [{ texto: "⏳ HASTA 3 AÑOS", correcto: false }, { texto: "⏱️ MENOS DE 72 HORAS", correcto: true }],
+                explicacion: "¡MENOS DE 72 HORAS! Al trabajar la Policía, la Fiscalía, la Defensa Pública y el Juzgado integrados en un mismo edificio, resuelven los casos flagrantes en un par de días, evitando juicios eternos."
+            },
+            {
+                pregunta: "Si un comerciante es extorsionado bajo la modalidad del préstamo 'Gota a Gota' y la policía captura al cobrador dejando amenazas en vivo, ¿se puede aplicar el juicio inmediato de flagrancia?",
+                opciones: [{ texto: "🚨 SÍ, DE INMEDIATO", correcto: true }, { texto: "⏳ NO, DEBE ESPERAR AÑOS", correcto: false }],
+                explicacion: "¡SÍ, SE APLICA DE INMEDIATO! Al ser capturado en flagrante delito con las notas amenazantes o el dinero de la extorsión, el sospechoso entra directo a la Unidad de Flagrancia y puede ser sentenciado penalmente en menos de 3 días."
+            },
+            {
+                pregunta: "Si un delincuente es grabado en HD por las cámaras de seguridad robando una tienda, pero lo atrapan 10 horas después vistiendo la misma ropa y con los bienes robados, ¿cuenta como flagrancia?",
+                opciones: [{ texto: "🎬 SÍ, POR AUDIOVISUAL", correcto: true }, { texto: "❌ NO, YA PASÓ EL MOMENTO", correcto: false }],
+                explicacion: "¡SÍ CUENTA! La ley estipula que si hay registro de video o fotos que identifican al autor, y se le captura dentro de las 24 horas siguientes con las evidencias del delito, califica perfectamente como flagrancia."
+            },
+            {
+                pregunta: "Si a un investigado en flagrancia no le alcanza el dinero para contratar a un abogado privado, ¿su juicio se suspende o se cancela?",
+                opciones: [{ texto: "🏛️ SE ASIGNA UN DEFENSOR PÚBLICO", correcto: true }, { texto: "🔓 QUEDA LIBRE SIN JUICIO", correcto: false }],
+                explicacion: "¡SE ASIGNA UN DEFENSOR PÚBLICO! El Ministerio de Justicia cuenta con defensores públicos permanentes dentro de las Unidades de Flagrancia. Ellos garantizan de forma gratuita que los derechos del detenido se respeten por igual."
+            },
+            {
+                pregunta: "Si dos estudiantes ingresan sin autorización al sistema informático de su colegio para alterar las notas de los exámenes y los descubren conectados desde el laboratorio del colegio, ¿cometen un delito?",
+                opciones: [{ texto: "💻 SÍ, DELITO INFORMÁTICO", correcto: true }, { texto: "🤷‍♂️ NO, ES SOLO UNA BROMA", correcto: false }],
+                explicacion: "¡SÍ ES UN DELITO! El acceso ilícito a sistemas informáticos y la alteración de datos protegidos están penados por la Ley de Delitos Informáticos en el Perú. Si se descubre en el acto, entran en flagrancia."
+            },
+            {
+                pregunta: "Un conductor que causa un accidente de tránsito con lesiones graves se escapa de la escena, pero la policía lo cerca y lo arresta a las 3 horas. ¿Se le puede juzgar en una Unidad de Flagrancia?",
+                opciones: [{ texto: "🚗 SÍ, ES FLAGRANCIA", correcto: true }, { texto: "🛑 NO, PORQUE HUYÓ", correcto: false }],
+                explicacion: "¡SÍ, ES FLAGRANCIA! La huida no anula la flagrancia si la policía lo identifica y captura dentro del plazo de las 24 horas posteriores al accidente. Irá a juicio inmediato por las lesiones y por abandono de personas en peligro."
+            },
+            {
+                pregunta: "Si un delincuente confiesa su culpabilidad de inmediato ante el Fiscal y el Juez de Flagrancia para acortar el proceso y recibir una rebaja de pena, ¿cómo se llama esta herramienta legal?",
+                opciones: [{ texto: "🤝 TERMINACIÓN ANTICIPADA", correcto: true }, { texto: "🚪 SALIDA DE EMERGENCIA", correcto: false }],
+                explicacion: "¡TERMINACIÓN ANTICIPADA! Es un mecanismo que permite al imputado aceptar sus cargos a cambio de reducir su condena en un sexto, logrando que el caso se cierre de manera justa y en pocas horas."
+            },
+            {
+                pregunta: "Si arrestan a una persona vendiendo entradas falsificadas en la puerta de un concierto masivo, ¿su caso puede ser procesado por la Ruta de la Flagrancia?",
+                opciones: [{ texto: "🎟️ SÍ, POR ESTAFA", correcto: true }, { texto: "❌ NO, ES UN NEGOCIO MENOR", correcto: false }],
+                explicacion: "¡SÍ, CLARO QUE SÍ! La falsificación de boletos y la estafa en vivo son delitos contra el patrimonio. Al ser capturado con las entradas falsas en las manos, pasa directo a la Unidad de Flagrancia de la zona."
+            },
+            {
+                pregunta: "Si un sospechoso es detenido en flagrancia y destruye a propósito el celular robado antes de que llegue la policía, ¿el caso se archiva por falta de objeto?",
+                opciones: [{ texto: "⛓️ NO, EL JUICIO CONTINÚA", correcto: true }, { texto: "🔓 SÍ, QUEDA LIBRE", correcto: false }],
+                explicacion: "¡EL JUICIO CONTINÚA! El delito de robo o hurto ya se consumó. Las declaraciones de la víctima, de los policías interventores y las imágenes de las cámaras son pruebas suficientes para sentenciarlo, e incluso agrava su situación por destruir evidencia."
+            },
+            {
+                pregunta: "¿Qué significa que las Unidades de Flagrancia concentren a la Policía, Fiscalía, Defensa Pública y Poder Judicial en un solo establecimiento físico?",
+                opciones: [{ texto: "🏢 MÁXIMA COORDINACIÓN Y VELOCIDAD", correcto: true }, { texto: "🤷‍♂️ QUE TIENEN MENOS TRABAJO", correcto: false }],
+                explicacion: "¡MÁXIMA COORDINACIÓN! Al eliminar los tiempos de viaje de documentos entre comisarías y juzgados lejanos, el flujo de información es inmediato, permitiendo resolver crímenes con una velocidad nunca antes vista."
+            }
+        ];
+
+        let preguntasPartidaActual = [];
+        let indicePreguntaActual = 0;
+
+        const correctOnomatopeyas = ["¡ZAP!", "¡BOOM!", "¡PUM!", "¡ZING!", "¡CRASH!"];
+        const incorrectOnomatopeyas = ["¡OOF!", "¡PLOP!", "¡QUÉEE!", "¡NOOO!"];
+
+        // Algoritmo de barajado (Fisher-Yates) y selección de 3 preguntas al azar
+        function prepararJuegoAleatorio() {
+            let copiaBanco = [...macroBancoPreguntas];
+            for (let i = copiaBanco.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copiaBanco[i], copiaBanco[j]] = [copiaBanco[j], copiaBanco[i]];
+            }
+            preguntasPartidaActual = copiaBanco.slice(0, 3);
+            indicePreguntaActual = 0;
+            mostrarPregunta();
+        }
+
+        function mostrarPregunta() {
+            document.getElementById('quiz-block').style.display = 'flex';
+            document.getElementById('feedback-block').style.display = 'none';
+
+            // Actualizar el indicador de progreso
+            document.getElementById('progress-tag').innerText = `PREGUNTA ${indicePreguntaActual + 1} DE 3`;
+            
+            // Actualizar los puntitos de progreso
+            const dots = document.querySelectorAll('#screen-game span.rounded-full');
+            dots.forEach((dot, idx) => {
+                if (idx === indicePreguntaActual) {
+                    dot.className = "w-6 h-3 rounded-full bg-amber-500 transition-all duration-300";
+                } else if (idx < indicePreguntaActual) {
+                    dot.className = "w-3 h-3 rounded-full bg-emerald-500 transition-all duration-300";
+                } else {
+                    dot.className = "w-3 h-3 rounded-full bg-slate-700 transition-all duration-300";
+                }
+            });
+
+            const datos = preguntasPartidaActual[indicePreguntaActual];
+            document.getElementById('question-text').innerText = datos.pregunta;
+
+            const boxOpciones = document.getElementById('options-box');
+            boxOpciones.innerHTML = '';
+
+            // Renderizar opciones
+            datos.opciones.forEach(opc => {
+                const btn = document.createElement('button');
+                btn.className = 'trivia-btn text-left p-6 text-xl md:text-2xl font-semibold flex items-center justify-between w-full text-slate-200';
+                btn.innerHTML = `<span>${opc.texto}</span> <i data-lucide="chevron-right" class="w-6 h-6 text-slate-500"></i>`;
+                btn.onclick = () => procesarRespuesta(opc.correcto, datos.explicacion);
+                boxOpciones.appendChild(btn);
+            });
+            lucide.createIcons();
+        }
+
+        function procesarRespuesta(isCorrect, explicacion) {
+            document.getElementById('quiz-block').style.display = 'none';
+            const fBlock = document.getElementById('feedback-block');
+            fBlock.style.display = 'flex';
+
+            const onomatopeiaEl = document.getElementById('feedback-onomatopoeia');
+            const title = document.getElementById('feedback-title');
+            const desc = document.getElementById('feedback-desc');
+
+            // Resetear animación del texto de cómic
+            onomatopeiaEl.classList.remove('animate-onomatopoeia');
+            void onomatopeiaEl.offsetWidth; // Trigger reflow
+            onomatopeiaEl.classList.add('animate-onomatopoeia');
+
+            if(isCorrect) {
+                const idx = Math.floor(Math.random() * correctOnomatopeyas.length);
+                onomatopeiaEl.innerText = correctOnomatopeyas[idx];
+                onomatopeiaEl.className = "font-comic text-8xl text-emerald-400 mb-4 tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]";
+                
+                title.innerText = "¡RESPUESTA CORRECTA! 🎯";
+                title.className = "font-tech font-black text-4xl text-emerald-400 mb-4 tracking-widest";
+            } else {
+                const idx = Math.floor(Math.random() * incorrectOnomatopeyas.length);
+                onomatopeiaEl.innerText = incorrectOnomatopeyas[idx];
+                onomatopeiaEl.className = "font-comic text-8xl text-rose-500 mb-4 tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]";
+                
+                title.innerText = "¡RESPUESTA INCORRECTA! 🛑";
+                title.className = "font-tech font-black text-4xl text-rose-500 mb-4 tracking-widest";
+            }
+
+            desc.innerText = explicacion;
+        }
+
+        function siguientePregunta() {
+            indicePreguntaActual++;
+            if(indicePreguntaActual < preguntasPartidaActual.length) {
+                mostrarPregunta();
+            } else {
+                alert("🎉 ¡Impresionante! Has completado con éxito la Trivia Express de la Ruta de la Flagrancia. ¡Pasa la voz a tus compañeros de Tumbes!");
+                navegarA('screen-main');
+            }
+        }
+
+        // Ejecutar funciones de inicio al cargar ventana
+        window.onload = function() {
+            inicializarCodigoQR();
+        }
+    </script>
+</body>
+</html>
