@@ -329,10 +329,10 @@
         
         <div class="absolute top-8 right-8 flex gap-2 z-20">
             <button class="btn-config bg-amber-500/80 hover:bg-amber-600 hover:text-slate-950 border border-amber-500/50 text-slate-950 px-4 py-3 rounded-xl font-tech font-bold text-xs tracking-widest flex items-center gap-2 transition-all" onclick="ajustarUrlDrive()">
-                <i data-lucide="settings" class="w-4 h-4"></i> CONFIGURAR DRIVE
+                <i data-lucide="settings" class="w-4 h-4"></i> 🤖
             </button>
             <button class="btn-config bg-slate-800/80 hover:bg-slate-700 hover:text-white border border-slate-700 text-slate-300 px-4 py-3 rounded-xl font-tech font-bold text-xs tracking-widest flex items-center gap-2 transition-all" onclick="document.getElementById('pdf-input').click()">
-                <i data-lucide="upload" class="w-4 h-4"></i> CARGAR LOCAL (PDF)
+                <i data-lucide="upload" class="w-4 h-4"></i> 📖​
             </button>
         </div>
         <input type="file" id="pdf-input" class="hide-input hidden" accept="application/pdf" onchange="cargarPDFLocal(event)">
@@ -403,7 +403,7 @@
     <script>
         // Enlace permanente por defecto de Google Drive (Formato Vista Previa)
         // Reemplaza este ID por el tuyo de Drive compartido públicamente
-        const DEFAULT_DRIVE_URL = "https://drive.google.com/file/d/1_SgM_f_7nEunZJ_XfLscf9t2P2kK_h16/view?usp=sharing";
+        const DEFAULT_DRIVE_URL = "https://drive.google.com/file/d/1ZbIEmLOSVjkCVSWJ6vNl1Aa9e7NezjLM/view?usp=sharing";
 
         // Inicializar enlace persistente desde localStorage o valor por defecto
         let pdfDriveUrl = localStorage.getItem("flagrancia_pdf_drive_url") || DEFAULT_DRIVE_URL;
