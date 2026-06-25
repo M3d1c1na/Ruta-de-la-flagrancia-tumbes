@@ -199,7 +199,7 @@
             /* Ajustes del Panel de Trivia en Pantallas de 75" */
             .trivia-container { max-width: 1400px !important; padding: 4rem !important; min-height: 750px !important; }
             #progress-tag { font-size: 2rem !important; }
-            .trivia-question { font-size: 4rem !important; margin-bottom: 4.5rem !important; }
+            .trivia-question { font-size: 4rem !important; margin-bottom: 4.5rem !important; line-height: 1.65 !important; }
             .trivia-btn { padding: 2.5rem !important; border-radius: 24px !important; }
             .trivia-btn span { font-size: 2.3rem !important; }
             .trivia-btn i { width: 2.5rem !important; height: 2.5rem !important; }
@@ -207,7 +207,7 @@
             /* Retroalimentación en 75" */
             #feedback-onomatopoeia { font-size: 10rem !important; }
             #feedback-title { font-size: 4.5rem !important; }
-            #feedback-desc { font-size: 2.5rem !important; max-width: 85% !important; margin-bottom: 4rem !important; }
+            #feedback-desc { font-size: 2.5rem !important; max-width: 85% !important; margin-bottom: 4rem !important; line-height: 1.65 !important; }
             #feedback-block button { padding: 1.8rem 3rem !important; font-size: 2rem !important; }
         }
 
@@ -226,16 +226,16 @@
 
             /* Ajustes del Panel de Trivia en Celulares */
             .trivia-container { padding: 1.5rem !important; min-height: auto !important; width: 100% !important; }
-            .trivia-question { font-size: 1.4rem !important; margin-bottom: 1.5rem !important; line-height: 1.4 !important; }
+            .trivia-question { font-size: 1.4rem !important; margin-bottom: 1.5rem !important; line-height: 1.65 !important; }
             .options-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
             .trivia-btn { padding: 1rem !important; border-radius: 12px !important; }
-            .trivia-btn span { font-size: 1rem !important; line-height: 1.3 !important; }
+            .trivia-btn span { font-size: 1rem !important; line-height: 1.35 !important; }
             .trivia-btn i { width: 1.25rem !important; height: 1.25rem !important; }
             
             /* Retroalimentación en Celulares */
             #feedback-onomatopoeia { font-size: 4rem !important; }
             #feedback-title { font-size: 1.8rem !important; }
-            #feedback-desc { font-size: 1rem !important; line-height: 1.4 !important; margin-bottom: 1.5rem !important; }
+            #feedback-desc { font-size: 1rem !important; line-height: 1.5 !important; margin-bottom: 1.5rem !important; }
             #feedback-block button { padding: 1rem 1.5rem !important; font-size: 1.1rem !important; }
             
             .btn-back, .btn-config { padding: 0.5rem 1rem !important; font-size: 0.8rem !important; top: 1rem !important; }
@@ -300,13 +300,13 @@
                 <!-- Textos e Invitación de Escaneo -->
                 <div class="text-left flex-1 min-w-0">
                     <div class="inline-flex items-center gap-1.5 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded text-[10px] font-tech text-amber-400 font-bold tracking-widest mb-1.5 uppercase">
-                        📲 Llevalo en tu celular
+                        📲 Lleva el juego en tu celular
                     </div>
                     <h3 class="font-tech font-bold text-slate-100 text-sm md:text-base leading-tight mb-1">
                         ¡ESCANEA Y ENTRÉNATE!
                     </h3>
                     <p class="text-[11px] md:text-xs text-slate-400 leading-normal mb-2">
-                        Comparte el link con tus amig@s y familiares.
+                        Apunta con la cámara de tu celular para jugar desde las aulas o compartirlo en casa.
                     </p>
                     <div class="flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
@@ -332,7 +332,7 @@
                 <i data-lucide="settings" class="w-4 h-4"></i> 🤖
             </button>
             <button class="btn-config bg-slate-800/80 hover:bg-slate-700 hover:text-white border border-slate-700 text-slate-300 px-4 py-3 rounded-xl font-tech font-bold text-xs tracking-widest flex items-center gap-2 transition-all" onclick="document.getElementById('pdf-input').click()">
-                <i data-lucide="upload" class="w-4 h-4"></i> 📖​
+                <i data-lucide="upload" class="w-4 h-4"></i> 📖
             </button>
         </div>
         <input type="file" id="pdf-input" class="hide-input hidden" accept="application/pdf" onchange="cargarPDFLocal(event)">
@@ -372,7 +372,8 @@
             
             <!-- Bloque de preguntas activas -->
             <div id="quiz-block" class="w-full flex-1 flex flex-col justify-center">
-                <div class="trivia-question text-xl md:text-3xl font-bold leading-relaxed text-slate-100 mb-6 md:mb-10 text-center" id="question-text">
+                <!-- Se modificó leading-relaxed por leading-loose para mejorar espacio entre palabras verticalmente -->
+                <div class="trivia-question text-xl md:text-3xl font-bold leading-loose text-slate-100 mb-6 md:mb-10 text-center" id="question-text" style="line-height: 1.65 !important;">
                     ¿Pregunta cargando?
                 </div>
                 <div class="options-grid grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full" id="options-box">
@@ -381,7 +382,7 @@
             </div>
 
             <!-- Bloque de retroalimentación / resultados -->
-            <div id="feedback-block" class="feedback-box w-full flex-1 flex-col justify-center items-center hidden">
+            <div id="feedback-block" class="feedback-box w-full flex-1 flex flex-col justify-center items-center hidden">
                 <!-- Onomatopeya Visual Estilo Cómic -->
                 <div id="feedback-onomatopoeia" class="font-comic text-5xl md:text-7xl text-amber-400 mb-2 md:mb-4 tracking-wide drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
                     ¡ZAP!
@@ -389,7 +390,7 @@
                 <div class="feedback-title text-2xl md:text-4xl font-tech font-black mb-3 md:mb-4 tracking-wider" id="feedback-title">
                     ¡CORRECTO!
                 </div>
-                <p class="feedback-text text-sm md:text-xl text-slate-300 font-light leading-relaxed max-w-3xl text-center mb-6 md:mb-8" id="feedback-desc">
+                <p class="feedback-text text-sm md:text-xl text-slate-300 font-light max-w-3xl text-center mb-6 md:mb-8" id="feedback-desc" style="line-height: 1.65 !important;">
                     Explicación de la ley.
                 </p>
                 <button class="cyber-btn cyber-btn-amber px-8 py-4 md:px-10 md:py-5 rounded-xl font-tech font-bold text-sm md:text-lg tracking-wider flex items-center gap-2" onclick="siguientePregunta()">
@@ -405,7 +406,7 @@
         // Reemplaza este ID por el tuyo de Drive compartido públicamente
         const DEFAULT_DRIVE_URL = "https://drive.google.com/file/d/1ZbIEmLOSVjkCVSWJ6vNl1Aa9e7NezjLM/view?usp=sharing";
 
-        // Inicializar enlace persistente desde localStorage o valor por defecto
+        // Inicializar enlace permanente desde localStorage o valor por defecto
         let pdfDriveUrl = localStorage.getItem("flagrancia_pdf_drive_url") || DEFAULT_DRIVE_URL;
 
         // Inicializar iconos de Lucide
@@ -576,22 +577,11 @@
             },
 
             {
-                pregunta: "¿Cuál es el objetivo principal del programa La Ruta de la Flagrancia?",
-                opciones: [{ texto: "❌ NINGUNO", correcto: false }, { texto: "🚨 CONCIENTIZAR A LOS JOVENES", correcto: true }],
-                explicacion: "Concientizar sobre las consecuencias del delito y mostrar cómo funciona la justicia rápida."
-            },
-
-             {
                 pregunta: "¿¿Qué operador de justicia se encarga de la captura inmediata del sospechoso en el momento del delito??",
                 opciones: [{ texto: "🤵‍♀️ MINISTERIO PUBLICO", correcto: false }, { texto: "👮 POLICIA NACIONAL DEL PERU", correcto: true }],
                 explicacion: "capturar al presunto delincuente en el momento de la comisión del delito y asegurar la escena y las evidencias iniciales "
             },
-            
-            {
-                pregunta: "Si la policía me atrapa manejando ebrio y pido perdón prometiendo no volver a tomar, ¿el Juez de Flagrancia me deja ir a casa libre?",
-                opciones: [{ texto: "🙏 ME DEJAN IR", correcto: false }, { texto: "⚖️ VOY A JUICIO", correcto: true }],
-                explicacion: "¡VOY A JUICIO EXPRESS! El arrepentimiento no elimina el peligro causado. En la Unidad de Flagrancia, en cuestión de horas te suspenden la licencia, te imponen multas, reparaciones civiles y recibes una sentencia oficial."
-            },
+
             {
                 pregunta: "¿Cuánto tiempo máximo tarda el sistema especial de Flagrancia en reunir pruebas, procesar y dictar la sentencia definitiva a un delincuente?",
                 opciones: [{ texto: "⏳ HASTA 3 AÑOS", correcto: false }, { texto: "⏱️ MENOS DE 72 HORAS", correcto: true }],
@@ -612,11 +602,13 @@
                 opciones: [{ texto: "🏛️ SE ASIGNA UN DEFENSOR PÚBLICO", correcto: true }, { texto: "🔓 QUEDA LIBRE SIN JUICIO", correcto: false }],
                 explicacion: "¡SE ASIGNA UN DEFENSOR PÚBLICO! El Ministerio de Justicia cuenta con defensores públicos permanentes dentro de las Unidades de Flagrancia. Ellos garantizan de forma gratuita que los derechos del detenido se respeten por igual."
             },
+
             {
                 pregunta: "¿Quién toma la decisión final sobre si el acusado es culpable o inocente?",
                 opciones: [{ texto: "🧑‍⚖️​ EL JUEZ", correcto: true }, { texto: "👮 LA POLICIA NACIONAL", correcto: false }],
                 explicacion: "¡SÍ ES UN DELITO! El acceso ilícito a sistemas informáticos y la alteración de datos protegidos están penados por la Ley de Delitos Informáticos en el Perú. Si se descubre en el acto, entran en flagrancia."
             },
+            
             {
                 pregunta: "Un conductor que causa un accidente de tránsito con lesiones graves se escapa de la escena, pero la policía lo cerca y lo arresta a las 3 horas. ¿Se le puede juzgar en una Unidad de Flagrancia?",
                 opciones: [{ texto: "🚗 SÍ, ES FLAGRANCIA", correcto: true }, { texto: "🛑 NO, PORQUE HUYÓ", correcto: false }],
@@ -663,8 +655,13 @@
         }
 
         function mostrarPregunta() {
-            document.getElementById('quiz-block').style.display = 'flex';
-            document.getElementById('feedback-block').style.display = 'none';
+            // Manejo de visibilidad seguro mediante clases locales
+            const quizBlock = document.getElementById('quiz-block');
+            const feedbackBlock = document.getElementById('feedback-block');
+
+            quizBlock.classList.remove('hidden');
+            feedbackBlock.classList.add('hidden');
+            feedbackBlock.classList.remove('flex');
 
             // Actualizar el indicador de progreso
             document.getElementById('progress-tag').innerText = `PREGUNTA ${indicePreguntaActual + 1} DE 3`;
@@ -699,9 +696,13 @@
         }
 
         function procesarRespuesta(isCorrect, explicacion) {
-            document.getElementById('quiz-block').style.display = 'none';
-            const fBlock = document.getElementById('feedback-block');
-            fBlock.style.display = 'flex';
+            // Alternar de forma limpia usando classList para evitar sobreposición por !important
+            const quizBlock = document.getElementById('quiz-block');
+            const feedbackBlock = document.getElementById('feedback-block');
+
+            quizBlock.classList.add('hidden');
+            feedbackBlock.classList.remove('hidden');
+            feedbackBlock.classList.add('flex'); // Fuerza el estado flex para centrado correcto
 
             const onomatopeiaEl = document.getElementById('feedback-onomatopoeia');
             const title = document.getElementById('feedback-title');
@@ -715,14 +716,14 @@
             if(isCorrect) {
                 const idx = Math.floor(Math.random() * correctOnomatopeyas.length);
                 onomatopeiaEl.innerText = correctOnomatopeyas[idx];
-                onomatopeiaEl.className = "font-comic text-6xl md:text-8xl text-emerald-400 mb-2 md:mb-4 tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]";
+                onomatopeiaEl.className = "font-comic text-6xl md:text-8xl text-emerald-400 mb-2 md:mb-4 tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] animate-onomatopoeia";
                 
                 title.innerText = "¡RESPUESTA CORRECTA! 🎯";
                 title.className = "font-tech font-black text-2xl md:text-4xl text-emerald-400 mb-2 md:mb-4 tracking-widest";
             } else {
                 const idx = Math.floor(Math.random() * incorrectOnomatopeyas.length);
                 onomatopeiaEl.innerText = incorrectOnomatopeyas[idx];
-                onomatopeiaEl.className = "font-comic text-6xl md:text-8xl text-rose-500 mb-2 md:mb-4 tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]";
+                onomatopeiaEl.className = "font-comic text-6xl md:text-8xl text-rose-500 mb-2 md:mb-4 tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] animate-onomatopoeia";
                 
                 title.innerText = "¡RESPUESTA INCORRECTA! 🛑";
                 title.className = "font-tech font-black text-2xl md:text-4xl text-rose-500 mb-2 md:mb-4 tracking-widest";
